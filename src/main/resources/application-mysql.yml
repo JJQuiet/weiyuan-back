@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name:    
+    url: jdbc:mysql://localhost:3306/locsvr?useUnicode=true&characterEncoding=utf8&autoReconnect=true&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull
+#   url: jdbc:mysql://192.168.7.59:3306/yjrf?useUnicode=true&characterEncoding=utf8&autoReconnect=true&characterSetResults=utf8&zeroDateTimeBehavior=convertToNull
+#    url: jdbc:mysql://172.16.200.244:3306/yjrf?useUnicode=true&characterEncoding=utf8&autoReconnect=true&characterSetResults=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root123123
+    
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+  web:
+    resources:
+      static-locations: classpath:/static/
+#      ddl-auto:create----每次运行该程序，没有表格会新建表格，表内有数据会清空
+#      ddl-auto:create-drop----每次程序结束的时候会清空表
+#      ddl-auto:update----每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
+#      ddl-auto:validate----运行程序会校验数据与数据库的字段类型是否相同，不同会报错
