@@ -10,11 +10,11 @@ import com.ujn.spu.service.MyWebSocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
+    @Autowired
+    private MyWebSocketHandler myWebSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//        registry.addHandler(new MyWebSocketHandler(webSocketService), "/ws").setAllowedOrigins("*");
-        registry.addHandler(new MyWebSocketHandler(), "/ws").setAllowedOrigins("*");
+        registry.addHandler(myWebSocketHandler, "/ws").setAllowedOrigins("*");
     }
-
 }

@@ -13,6 +13,12 @@ server:
 
     
 spring:
+  resources:
+    static-locations: "file:uploads/"
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     #driver-class-name: org.h2.Driver
     #url: jdbc:h2:file:./emdata/locsvr
@@ -41,7 +47,6 @@ spring:
         web-allow-others: true
         # h2 web console 管理员密码
         web-admin-password: root
-  web:
-    resources:
-      static-locations: classpath:/static/
-#        trace: true 
+#  web:
+#    resources:
+#      static-locations: classpath:/static/

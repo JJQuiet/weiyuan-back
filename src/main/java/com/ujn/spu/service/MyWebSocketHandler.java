@@ -22,8 +22,8 @@ import org.json.*;
 @Component
 public class MyWebSocketHandler extends TextWebSocketHandler {
     private Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
-//    @Autowired
-//    CameraLocRepository cameraLocRepository;
+    @Autowired
+    CameraLocRepository cameraLocRepository;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -35,7 +35,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // 处理收到的文本消息
         log.info("收到消息：" + message.getPayload());
-//        updateCameraLocation(message.getPayload());
+        updateCameraLocation(message.getPayload());
         broadcastMessageToOthers(session, message.getPayload());
     }
     @Override
@@ -58,22 +58,22 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         }
     }
 
-//    private void updateCameraLocation(String jsonMessage) {
-//        try {
-//            JSONObject json = new JSONObject(jsonMessage);
-//            String cameraName = json.getString("CAMERA_NAME");
-//            String latVal = json.getString("LAT_VAL");
-//            String lngVal = json.getString("LNG_VAL");
-//
-//            CameraLocEntity cameraLocation = cameraLocRepository.findByCameraName(cameraName)
-//                    .orElse(new CameraLocEntity());
-//            cameraLocation.setCameraName(cameraName);
-//            cameraLocation.setLatVal(latVal);
-//            cameraLocation.setLngVal(lngVal);
-//            cameraLocRepository.save(cameraLocation);
-//        } catch (JSONException e) {
-//            log.error("Error parsing JSON message", e);
-//        }
-//    }
+    private void updateCameraLocation(String jsonMessage) {
+        try {
+            JSONObject json = new JSONObject(jsonMessage);
+            String cameraName = json.getString("CameraName");
+            String latVal = json.getString("LAT_VAL");
+            String lngVal = json.getString("LNG_VAL");
+
+            CameraLocEntity cameraLocation = cameraLocRepository.findByCameraName(cameraName)
+                    .orElse(new CameraLocEntity());
+            cameraLocation.setCameraName(cameraName);
+            cameraLocation.setLatVal(latVal);
+            cameraLocation.setLngVal(lngVal);
+            cameraLocRepository.save(cameraLocation);
+        } catch (JSONException e) {
+            log.error("Error parsing JSON message", e);
+        }
+    }
 
 }
