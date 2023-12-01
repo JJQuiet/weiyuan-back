@@ -1,0 +1,15 @@
+# 开发环境配置
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    session:
+      timeout: 60000
+
+spring:
+  profiles:
+    active: "h2"
