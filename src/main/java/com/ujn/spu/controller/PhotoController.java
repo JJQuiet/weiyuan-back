@@ -45,7 +45,18 @@ public class PhotoController {
 
     @PostMapping("/uploadPhoto")
     public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file,
-                                         @RequestParam("uploader_name") String uploaderName) {
+                                         @RequestParam("uploader_name") String uploaderName,@RequestParam("photo_description") String photoDescription) {
+        // 检查目录是否存在，如果不存在则创建它
+        Path uploadDirPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadDirPath)) {
+            try {
+                Files.createDirectories(uploadDirPath); // 创建目录，包括所有父目录
+            } catch (IOException e) {
+                // 处理目录创建失败的异常
+                e.printStackTrace();
+            }
+        }
         try {
             // 文件存储逻辑
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -61,6 +72,8 @@ public class PhotoController {
                     .path(fileName)
                     .toUriString();
             photoInfo.setPhotoPath(fileDownloadUri);
+            photoInfo.setPhotoDescription(photoDescription);
+
             photoInfoRepository.save(photoInfo);
 
             return ResponseEntity.ok("文件上传成功");

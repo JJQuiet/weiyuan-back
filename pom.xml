@@ -87,7 +87,14 @@
             <artifactId>json</artifactId>
             <version>20220320</version> <!-- 使用最新的版本 -->
         </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.5</version>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>

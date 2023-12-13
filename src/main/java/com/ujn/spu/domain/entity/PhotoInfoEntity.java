@@ -18,6 +18,7 @@ public class PhotoInfoEntity {
     private String uploaderName;
     private String photoName;
     private String photoPath;
+    private String photoDescription;
     public void setUploaderName(String uploaderName) {
         this.uploaderName = uploaderName;
     }
@@ -38,5 +39,11 @@ public class PhotoInfoEntity {
     }
     public Long getId() {
         return id;
+    }
+    public void setPhotoDescription(String photoDescription) {
+        this.photoDescription = photoDescription;
+    }
+    public String getPhotoDescription() {
+        return photoDescription;
     }
 }
