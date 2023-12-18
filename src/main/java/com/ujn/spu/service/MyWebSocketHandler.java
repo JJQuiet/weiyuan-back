@@ -1,5 +1,7 @@
 package com.ujn.spu.service;
 
+import com.ujn.spu.dao.HistoryLocationsRepository;
+import com.ujn.spu.domain.entity.HistoryLocationsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
@@ -24,6 +26,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     private Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
     @Autowired
     CameraLocRepository cameraLocRepository;
+    @Autowired
+    HistoryLocationsRepository historyLocationsRepository;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -71,6 +75,13 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             cameraLocation.setLatVal(latVal);
             cameraLocation.setLngVal(lngVal);
             cameraLocRepository.save(cameraLocation);
+
+            HistoryLocationsEntity historyLocation = new HistoryLocationsEntity();
+            historyLocation.setUserName(cameraName);
+            historyLocation.setLatitude(latVal);
+            historyLocation.setLongitude(lngVal);
+            historyLocation.setTimestamp(java.time.LocalDateTime.now());
+            historyLocationsRepository.save(historyLocation);
         } catch (JSONException e) {
             log.error("Error parsing JSON message", e);
         }
