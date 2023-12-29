@@ -47,7 +47,7 @@ public class PhotoController {
     public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file,
                                          @RequestParam("uploader_name") String uploaderName,@RequestParam("photo_description") String photoDescription) {
         // 检查目录是否存在，如果不存在则创建它
-        Path uploadDirPath = Paths.get(uploadDir);
+        Path uploadDirPath = Paths.get(UPLOAD_PHOTO_DIR);
 
         if (!Files.exists(uploadDirPath)) {
             try {
@@ -60,7 +60,7 @@ public class PhotoController {
         try {
             // 文件存储逻辑
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-            Path storagePath = Paths.get(uploadDir).resolve(fileName);
+            Path storagePath = Paths.get(UPLOAD_PHOTO_DIR).resolve(fileName);
             Files.copy(file.getInputStream(), storagePath, StandardCopyOption.REPLACE_EXISTING);
 
             // 保存信息到数据库
